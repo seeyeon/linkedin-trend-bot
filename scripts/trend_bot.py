@@ -62,7 +62,7 @@ def extract_keywords_with_gemini(items):
 마지막에 오늘 전체를 관통하는 키워드 3개도 뽑아줘."""
 
     response = requests.post(
-        f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={GEMINI_API_KEY}",
+        f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}",
         headers={"content-type": "application/json"},
         json={
             "contents": [{"parts": [{"text": prompt}]}],
