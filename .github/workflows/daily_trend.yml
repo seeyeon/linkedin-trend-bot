@@ -1,0 +1,29 @@
+name: Daily Trend Bot
+
+on:
+  schedule:
+    # 매일 한국시간 오전 8시 (UTC 23:00 전날)
+    - cron: "0 23 * * *"
+  workflow_dispatch: # 수동 실행도 가능
+
+jobs:
+  run-trend-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Python 설치
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 패키지 설치
+        run: pip install requests feedparser
+
+      - name: 트렌드 봇 실행
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python scripts/trend_bot.py
